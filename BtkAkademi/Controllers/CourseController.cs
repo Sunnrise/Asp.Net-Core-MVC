@@ -21,8 +21,16 @@ namespace BtkAkademi.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Apply([FromForm]Candidate model)
         {
-            Repository.Add(model);
+            if(Repository.Applications.Any(c=>c.Email.Equals(model.Email)))
+                ModelState.AddModelError("","There is already an application.");
+
+
+            if(ModelState.IsValid)
+            {
+                Repository.Add(model);
             return View("Feedback",model);
+            }
+            return View();
         }
     }
 }
