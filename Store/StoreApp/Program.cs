@@ -27,10 +27,12 @@ app.UseRouting();
 
 //controller route template
 app.MapControllerRoute(
-    name:"default",
-    pattern:"{controller=Home}/{action=Index}/{id?}");
+    "default",
+    "{controller=Home}/{action=Index}/{id?}");
+    // name:"default",
+    // pattern:"{controller=Home}/{action=Index}/{id?}");
 
     //or like this
-    // "default","{controller=Home}/{action=Index}/{id?}");
+     
 
 app.Run();
