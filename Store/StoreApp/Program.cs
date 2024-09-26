@@ -16,7 +16,9 @@ builder.Services.AddDbContext<RepositoryContext>(options=>
 var app = builder.Build();
 
 
-app.UseHttpsRedirection();
+
+//for using static files(wwwroot)
+app.UseStaticFiles();
 
 
 //for redirect http to https
