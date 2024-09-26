@@ -5,14 +5,17 @@
         Only for a index.cshtml page footer
     </div>
 }
-@foreach (StoreApp.Models.Product prd in Model)
 
+    <div class="row my-3">
+@foreach (Product prd in Model)
 {
-    <div>
+        <partial name="_ProductCard" model="@prd" />
+    @* <div>
         <h3>@prd.ProductName</h3>
         <p>@prd.Price</p>
         <p>
             <a href="product/get/@prd.Id">Get Details</a>
         </p>
-    </div>
+    </div> *@
 }
+    </div>
