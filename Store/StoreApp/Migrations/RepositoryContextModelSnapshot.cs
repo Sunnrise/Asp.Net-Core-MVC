@@ -16,9 +16,35 @@ namespace StoreApp.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
 
+            modelBuilder.Entity("Entities.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            CategoryName = "Book"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            CategoryName = "Electronic"
+                        });
+                });
+
             modelBuilder.Entity("Entities.Models.Product", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ProductId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -28,44 +54,44 @@ namespace StoreApp.Migrations
                     b.Property<string>("ProductName")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("ProductId");
 
                     b.ToTable("Products");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            ProductId = 1,
                             Price = 17000m,
                             ProductName = "Computer"
                         },
                         new
                         {
-                            Id = 2,
+                            ProductId = 2,
                             Price = 1700m,
                             ProductName = "Com"
                         },
                         new
                         {
-                            Id = 3,
+                            ProductId = 3,
                             Price = 170m,
                             ProductName = "Comp"
                         },
                         new
                         {
-                            Id = 4,
+                            ProductId = 4,
                             Price = 170m,
                             ProductName = "Compu"
                         },
                         new
                         {
-                            Id = 5,
+                            ProductId = 5,
                             Price = 17m,
                             ProductName = "Comput"
                         },
                         new
                         {
-                            Id = 6,
+                            ProductId = 6,
                             Price = 1m,
                             ProductName = "Compute"
                         });
