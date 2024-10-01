@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repositories;
@@ -43,14 +44,25 @@ app.UseHttpsRedirection();
 //endpoints routes definition
 app.UseRouting();
 
-//controller route template
-app.MapControllerRoute(
-    "default",
-    "{controller=Home}/{action=Index}/{id?}");
-    // name:"default",
-    // pattern:"{controller=Home}/{action=Index}/{id?}");
+//for areas
+app.UseEndpoints(end=>
+{
+    //admin route
+    _ = end.MapAreaControllerRoute(
+            name: "Admin",
+            areaName: "Admin",
+            pattern: "Admin/{controller=Dashboard}/{action=Index}/{id?}"
+        );
 
-    //or like this
+    //base route
+    _ = end.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}"
+    );
+});
+
+
+
      
 
 app.Run();
