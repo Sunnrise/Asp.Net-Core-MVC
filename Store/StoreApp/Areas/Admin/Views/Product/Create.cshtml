@@ -10,12 +10,14 @@
 
     <div class="form-group my-3">
         <label asp-for="CategoryId"></label>
-        <select class="form-control" asp-for="CategoryId">
-            @foreach(var cat in ViewBag.Categories)
+        <select class="form-control" asp-items="@ViewBag.Categories"asp-for="CategoryId"></select>
+            @* @foreach(var cat in ViewBag.Categories)
             {
                 <option value="@cat.CategoryId">@cat.CategoryName</option>
-            }
-        </select>
+            } *@
+
+
+
     </div>
 
 
