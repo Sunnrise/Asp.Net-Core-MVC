@@ -9,6 +9,7 @@ namespace StoreApp.Infrastructure.Mapper
         public MappingProfile()
         {
             CreateMap<ProductDTO_ForInsertion,Product>();
+            CreateMap<ProductDTO_ForUpdate,Product>().ReverseMap();
         }
     }
 }
