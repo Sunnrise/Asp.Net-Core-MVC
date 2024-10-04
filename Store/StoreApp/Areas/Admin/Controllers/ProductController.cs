@@ -1,3 +1,4 @@
+using Entities.DTOs;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -34,11 +35,11 @@ namespace StoreApp.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([FromForm] Product product)
+        public IActionResult Create([FromForm] ProductDTO_ForInsertion productDto)
         {
             if (ModelState.IsValid)
             {
-                _manager.ProductService.CreateProduct(product);
+                _manager.ProductService.CreateProduct(productDto);
                 return RedirectToAction(nameof(Index));
             }
             return View();

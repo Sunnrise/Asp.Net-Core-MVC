@@ -30,6 +30,9 @@ builder.Services.AddScoped<IServiceManager, ServiceManager>();
 builder.Services.AddScoped<IProductService, ProductManager>();
 builder.Services.AddScoped<ICategoryService, CategoryManager>();
 
+//AutoMapper Service Registration
+builder.Services.AddAutoMapper(typeof(Program));
+
 var app = builder.Build();
 
 
