@@ -18,15 +18,19 @@
         <li class="nav-item">
         <a class="nav-link active" aria-current="page" asp-controller="Category" asp-action="Index">Categories</a>
         </li>
-
+        
         <li class="nav-item">
         <a class="nav-link active" aria-current="page" asp-page="/Contact">Contact</a>
         </li>
+        
       </ul>
 
        <ul class="navbar-nav">
          <li class="nav-item">
-            <a target="_blank" class="nav-link text-dark" aria-current="page" asp-page="/Cart">Cart</a>
+            <a target="_blank" class="nav-link text-dark" aria-current="page" asp-page="/Cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+            Cart(@await Component.InvokeAsync("CartSummary"))
+            </a>
           </li>
          <li class="nav-item">
             <a target="_blank" class="nav-link text-dark" aria-current="page" asp-area="admin" asp-controller="Dashboard" asp-action="Index">Admin</a>
