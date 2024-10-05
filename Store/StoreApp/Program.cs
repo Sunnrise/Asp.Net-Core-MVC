@@ -1,7 +1,6 @@
 using Entities.Models;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Repositories;
 using Repositories.Contracts;
 using Services;
@@ -22,18 +21,28 @@ builder.Services.AddDbContext<RepositoryContext>(options=>
     b=> b.MigrationsAssembly(nameof(StoreApp)));
 });
 
-//Repositories
+//Session
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options=>
+{
+    options.Cookie.Name="StoreApp.Session";
+    options.IdleTimeout=TimeSpan.FromMinutes(9);
+});
 
+//HttpContextAccessor IoC Regis.
+builder.Services.AddSingleton<IHttpContextAccessor,HttpContextAccessor>();
+
+//Repositories
 builder.Services.AddScoped<IRepositoryManager,RepositoryManager>();
 builder.Services.AddScoped<IProductRepository,ProductRepository>();
 builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
 
 //Services
-
 builder.Services.AddScoped<IServiceManager, ServiceManager>();
 builder.Services.AddScoped<IProductService, ProductManager>();
 builder.Services.AddScoped<ICategoryService, CategoryManager>();
 
+//IoC registration for Cart
 builder.Services.AddSingleton<Cart>();
 
 //AutoMapper Service Registration
@@ -41,11 +50,11 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 
-
-
 //for using static files(wwwroot)
 app.UseStaticFiles();
 
+//for using session
+app.UseSession();
 
 //for redirect http to https
 app.UseHttpsRedirection();
@@ -62,7 +71,6 @@ app.UseEndpoints(end=>
             areaName: "Admin",
             pattern: "Admin/{controller=Dashboard}/{action=Index}/{id?}"
         );
-
     //base route
     _ = end.MapControllerRoute(
         name: "default",
@@ -70,9 +78,4 @@ app.UseEndpoints(end=>
     );
     _ = end.MapRazorPages();
 });
-
-
-
-     
-
 app.Run();
