@@ -5,6 +5,7 @@ using Repositories;
 using Repositories.Contracts;
 using Services;
 using Services.Contracts;
+using StoreApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,7 +44,7 @@ builder.Services.AddScoped<IProductService, ProductManager>();
 builder.Services.AddScoped<ICategoryService, CategoryManager>();
 
 //IoC registration for Cart
-builder.Services.AddSingleton<Cart>();
+builder.Services.AddScoped<Cart>(c=> SessionCart.GetCart(c));
 
 //AutoMapper Service Registration
 builder.Services.AddAutoMapper(typeof(Program));
