@@ -1,3 +1,4 @@
+using Entities.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 //adding controllerviews for mvc, controller for api
 builder.Services.AddControllersWithViews();
+
+//adding razorpages for mvvm pattern without controller
+builder.Services.AddRazorPages();
 
 //database using declaration 
 builder.Services.AddDbContext<RepositoryContext>(options=>
@@ -29,6 +33,8 @@ builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
 builder.Services.AddScoped<IServiceManager, ServiceManager>();
 builder.Services.AddScoped<IProductService, ProductManager>();
 builder.Services.AddScoped<ICategoryService, CategoryManager>();
+
+builder.Services.AddSingleton<Cart>();
 
 //AutoMapper Service Registration
 builder.Services.AddAutoMapper(typeof(Program));
@@ -62,6 +68,7 @@ app.UseEndpoints(end=>
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}"
     );
+    _ = end.MapRazorPages();
 });
 
 
