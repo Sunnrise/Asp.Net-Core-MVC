@@ -11,6 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 //adding controllerviews for mvc, controller for api
 builder.Services.AddControllersWithViews();
 
+//adding razorpages for mvvm pattern without controller
+builder.Services.AddRazorPages();
+
 //database using declaration 
 builder.Services.AddDbContext<RepositoryContext>(options=>
 {
@@ -62,6 +65,7 @@ app.UseEndpoints(end=>
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}"
     );
+    _ = end.MapRazorPages();
 });
 
 
