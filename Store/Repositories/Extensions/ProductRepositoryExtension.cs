@@ -24,5 +24,11 @@ namespace Repositories.Extensions
                 return products.Where(prd=>prd.Price>=minPrice&& prd.Price<=maxPrice);
             return products;
         }
+        public static IQueryable<Product>ToPaginate(this IQueryable<Product> products, int pageNumber, int pageSize)
+        {
+            return products
+                .Skip(((pageNumber-1)*pageSize))
+                .Take(pageSize);
+        }
     }
 }
