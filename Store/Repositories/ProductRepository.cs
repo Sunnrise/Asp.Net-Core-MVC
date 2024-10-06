@@ -1,9 +1,12 @@
 using Entities.Models;
+using Entities.RequestParameters;
+using Microsoft.EntityFrameworkCore;
 using Repositories.Contracts;
+using Repositories.Extensions;
 
 namespace Repositories
 {
-    public class ProductRepository : RepositoryBase<Product>, IProductRepository
+    public sealed class ProductRepository : RepositoryBase<Product>, IProductRepository
     {
         public ProductRepository(RepositoryContext context) : base(context)
         {
@@ -15,6 +18,26 @@ namespace Repositories
 
         
         public IQueryable<Product> GetAllProducts(bool trackChanges) => FindAll(trackChanges);
+
+        public IQueryable<Product> GetAllProductsWithDetail(ProductRequestParameters p)
+        {
+            //after extension
+            return _context
+                .Products
+                .FilteredByCategoryId(p.CategoryId);
+
+            ////before extension
+            
+            // return p.CategoryId is null
+            //     ?_context
+            //         .Products
+            //         .Include(prd=>prd.Category)
+            //     :_context
+            //         .Products
+            //         .Include(prd=>prd.Category)
+            //         .Where(prd=>prd.CategoryId.Equals(p.CategoryId));
+
+        }
 
         //interfaces
 
