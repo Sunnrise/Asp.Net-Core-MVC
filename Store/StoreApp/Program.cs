@@ -1,11 +1,4 @@
-using Entities.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Repositories;
-using Repositories.Contracts;
-using Services;
-using Services.Contracts;
-using StoreApp.Models;
+using StoreApp.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,38 +8,24 @@ builder.Services.AddControllersWithViews();
 //adding razorpages for mvvm pattern without controller
 builder.Services.AddRazorPages();
 
-//database using declaration 
-builder.Services.AddDbContext<RepositoryContext>(options=>
-{
-    options.UseSqlite(builder.Configuration.GetConnectionString("sqlconnection"),
-    b=> b.MigrationsAssembly(nameof(StoreApp)));
-});
+//Db extension registration
+builder.Services.ConfigureDbContext(builder.Configuration);
 
-//Session
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options=>
-{
-    options.Cookie.Name="StoreApp.Session";
-    options.IdleTimeout=TimeSpan.FromMinutes(9);
-});
+//Session extension registration
+builder.Services.ConfigureSession();
+
+//Repository extension registration
+builder.Services.ConfigureRepositoryRegistration();
+
+//Service extension registration
+builder.Services.ConfigureServiceRegistration();
+
+
 
 //HttpContextAccessor IoC Regis.
 builder.Services.AddSingleton<IHttpContextAccessor,HttpContextAccessor>();
 
-//Repositories
-builder.Services.AddScoped<IRepositoryManager,RepositoryManager>();
-builder.Services.AddScoped<IProductRepository,ProductRepository>();
-builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
-builder.Services.AddScoped<IOrderRepository,OrderRepository>();
 
-//Services
-builder.Services.AddScoped<IServiceManager, ServiceManager>();
-builder.Services.AddScoped<IProductService, ProductManager>();
-builder.Services.AddScoped<ICategoryService, CategoryManager>();
-builder.Services.AddScoped<IOrderService, OrderManager>();
-
-//IoC registration for Cart
-builder.Services.AddScoped<Cart>(c=> SessionCart.GetCart(c));
 
 //AutoMapper Service Registration
 builder.Services.AddAutoMapper(typeof(Program));
