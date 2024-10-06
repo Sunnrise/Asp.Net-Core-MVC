@@ -1,6 +1,7 @@
 using AutoMapper;
 using Entities.DTOs;
 using Entities.Models;
+using Entities.RequestParameters;
 using Repositories.Contracts;
 using Services.Contracts;
 
@@ -46,6 +47,11 @@ namespace Services
             return _manager.Product.GetAllProducts(trackChanges);
         }
 
+        public IEnumerable<Product> GetAllProductsWithDetail(ProductRequestParameters p)
+        {
+            return _manager.Product.GetAllProductsWithDetail(p);
+        }
+
         public Product? GetOneProduct(int id, bool trackChanges)
         {
             var product = _manager.Product.GetOneProduct(id, trackChanges);
@@ -61,6 +67,12 @@ namespace Services
             var product= GetOneProduct(id,trackChanges);
             var productDto = _mapper.Map<ProductDTO_ForUpdate>(product);
             return productDto;
+        }
+
+        public IEnumerable<Product> GetShowCaseProducts(bool trackChanges)
+        {
+            var product=_manager.Product.GetShowCaseProducts(trackChanges);
+            return product;
         }
 
         public void UpdateOneProduct(ProductDTO_ForUpdate productDto)

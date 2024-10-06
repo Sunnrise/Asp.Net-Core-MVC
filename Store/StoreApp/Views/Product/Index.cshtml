@@ -1,8 +1,11 @@
+@using StoreApp.Components
 @model IQueryable<Product>
 
 <div class="row">
     <div class="col-md-3">
          @await Component.InvokeAsync("CategoriesMenu")
+         @await Component.InvokeAsync("ProductFilterMenu")
+        
     </div>
 
 <div class="col-md-9">
@@ -22,7 +25,6 @@
 
 </div>
 </div>
-
 @section Footer{
     <div>
         Only for a index.cshtml page footer

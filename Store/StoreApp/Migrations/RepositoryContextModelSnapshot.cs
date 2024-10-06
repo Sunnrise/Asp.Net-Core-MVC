@@ -127,6 +127,9 @@ namespace StoreApp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("ShowCase")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Summary")
                         .HasColumnType("TEXT");
 
@@ -144,6 +147,7 @@ namespace StoreApp.Migrations
                             ImageUrl = "/images/1.jpg",
                             Price = 17000m,
                             ProductName = "Computer",
+                            ShowCase = false,
                             Summary = ""
                         },
                         new
@@ -153,6 +157,7 @@ namespace StoreApp.Migrations
                             ImageUrl = "/images/2.jpg",
                             Price = 1700m,
                             ProductName = "Com",
+                            ShowCase = false,
                             Summary = ""
                         },
                         new
@@ -162,6 +167,7 @@ namespace StoreApp.Migrations
                             ImageUrl = "/images/3.jpg",
                             Price = 170m,
                             ProductName = "Comp",
+                            ShowCase = false,
                             Summary = ""
                         },
                         new
@@ -171,6 +177,7 @@ namespace StoreApp.Migrations
                             ImageUrl = "/images/4.jpg",
                             Price = 170m,
                             ProductName = "Compu",
+                            ShowCase = false,
                             Summary = ""
                         },
                         new
@@ -180,6 +187,7 @@ namespace StoreApp.Migrations
                             ImageUrl = "/images/5.jpg",
                             Price = 17m,
                             ProductName = "Comput",
+                            ShowCase = false,
                             Summary = ""
                         },
                         new
@@ -189,6 +197,7 @@ namespace StoreApp.Migrations
                             ImageUrl = "/images/6.jpg",
                             Price = 1m,
                             ProductName = "Science Book",
+                            ShowCase = false,
                             Summary = ""
                         },
                         new
@@ -196,8 +205,39 @@ namespace StoreApp.Migrations
                             ProductId = 7,
                             CategoryId = 1,
                             ImageUrl = "/images/7.jpg",
-                            Price = 1m,
+                            Price = 1445245m,
                             ProductName = "Maths",
+                            ShowCase = false,
+                            Summary = ""
+                        },
+                        new
+                        {
+                            ProductId = 8,
+                            CategoryId = 1,
+                            ImageUrl = "/images/8.jpg",
+                            Price = 100m,
+                            ProductName = "bio",
+                            ShowCase = true,
+                            Summary = ""
+                        },
+                        new
+                        {
+                            ProductId = 9,
+                            CategoryId = 1,
+                            ImageUrl = "/images/9.jpg",
+                            Price = 145m,
+                            ProductName = "platon",
+                            ShowCase = true,
+                            Summary = ""
+                        },
+                        new
+                        {
+                            ProductId = 10,
+                            CategoryId = 1,
+                            ImageUrl = "/images/10.jpg",
+                            Price = 142342m,
+                            ProductName = "Maths",
+                            ShowCase = true,
                             Summary = ""
                         });
                 });
