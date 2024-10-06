@@ -56,7 +56,8 @@ namespace StoreApp.Migrations
                     Price = table.Column<decimal>(type: "TEXT", nullable: false),
                     Summary = table.Column<string>(type: "TEXT", nullable: true),
                     ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
-                    CategoryId = table.Column<int>(type: "INTEGER", nullable: true)
+                    CategoryId = table.Column<int>(type: "INTEGER", nullable: true),
+                    ShowCase = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -105,16 +106,19 @@ namespace StoreApp.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProductId", "CategoryId", "ImageUrl", "Price", "ProductName", "Summary" },
+                columns: new[] { "ProductId", "CategoryId", "ImageUrl", "Price", "ProductName", "ShowCase", "Summary" },
                 values: new object[,]
                 {
-                    { 1, 2, "/images/1.jpg", 17000m, "Computer", "" },
-                    { 2, 2, "/images/2.jpg", 1700m, "Com", "" },
-                    { 3, 2, "/images/3.jpg", 170m, "Comp", "" },
-                    { 4, 2, "/images/4.jpg", 170m, "Compu", "" },
-                    { 5, 2, "/images/5.jpg", 17m, "Comput", "" },
-                    { 6, 1, "/images/6.jpg", 1m, "Science Book", "" },
-                    { 7, 1, "/images/7.jpg", 1m, "Maths", "" }
+                    { 1, 2, "/images/1.jpg", 17000m, "Computer", false, "" },
+                    { 2, 2, "/images/2.jpg", 1700m, "Com", false, "" },
+                    { 3, 2, "/images/3.jpg", 170m, "Comp", false, "" },
+                    { 4, 2, "/images/4.jpg", 170m, "Compu", false, "" },
+                    { 5, 2, "/images/5.jpg", 17m, "Comput", false, "" },
+                    { 6, 1, "/images/6.jpg", 1m, "Science Book", false, "" },
+                    { 7, 1, "/images/7.jpg", 1445245m, "Maths", false, "" },
+                    { 8, 1, "/images/8.jpg", 100m, "bio", true, "" },
+                    { 9, 1, "/images/9.jpg", 145m, "platon", true, "" },
+                    { 10, 1, "/images/10.jpg", 142342m, "Maths", true, "" }
                 });
 
             migrationBuilder.CreateIndex(

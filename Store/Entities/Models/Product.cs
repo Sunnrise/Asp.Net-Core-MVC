@@ -11,4 +11,5 @@ public class Product
     public String? ImageUrl { get; set; }
     public int? CategoryId { get; set; } //Foreign key
     public Category? Category { get; set; }// navigation property
+    public bool ShowCase{get;set;}
 }

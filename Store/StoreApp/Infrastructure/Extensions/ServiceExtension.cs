@@ -2,6 +2,8 @@ using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using Repositories;
 using Repositories.Contracts;
+using Services;
+using Services.Contracts;
 using StoreApp.Models;
 
 namespace StoreApp.Infrastructure.Extensions
@@ -49,10 +51,10 @@ namespace StoreApp.Infrastructure.Extensions
         public static void ConfigureServiceRegistration(this IServiceCollection services)
         {
             //Services
-            services.AddScoped<IRepositoryManager, RepositoryManager>();
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IServiceManager, ServiceManager>();
+            services.AddScoped<IProductService, ProductManager>();
+            services.AddScoped<ICategoryService, CategoryManager>();
+            services.AddScoped<IOrderService, OrderManager>();
         }
     }
 }

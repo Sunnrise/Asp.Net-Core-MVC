@@ -26,7 +26,6 @@ builder.Services.ConfigureServiceRegistration();
 builder.Services.AddSingleton<IHttpContextAccessor,HttpContextAccessor>();
 
 
-
 //AutoMapper Service Registration
 builder.Services.AddAutoMapper(typeof(Program));
 
@@ -60,4 +59,8 @@ app.UseEndpoints(end=>
     );
     _ = end.MapRazorPages();
 });
+
+//Auto migrations extension registration
+app.ConfigureAndCheckMigration();
+
 app.Run();
