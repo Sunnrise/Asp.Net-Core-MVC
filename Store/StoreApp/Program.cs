@@ -20,6 +20,9 @@ builder.Services.ConfigureRepositoryRegistration();
 //Service extension registration
 builder.Services.ConfigureServiceRegistration();
 
+//Lowercase urls extension registration
+builder.Services.CongfigureRouting();
+
 
 
 //HttpContextAccessor IoC Regis.
@@ -62,5 +65,8 @@ app.UseEndpoints(end=>
 
 //Auto migrations extension registration
 app.ConfigureAndCheckMigration();
+
+//Localization extension registration
+app.ConfigureLocalization();
 
 app.Run();

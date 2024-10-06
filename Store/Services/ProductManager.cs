@@ -63,6 +63,12 @@ namespace Services
             return productDto;
         }
 
+        public IEnumerable<Product> GetShowCaseProducts(bool trackChanges)
+        {
+            var product=_manager.Product.GetShowCaseProducts(trackChanges);
+            return product;
+        }
+
         public void UpdateOneProduct(ProductDTO_ForUpdate productDto)
         {
             // var entity = _manager.Product.GetOneProduct(productDto.ProductId, true);

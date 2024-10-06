@@ -12,10 +12,22 @@ namespace StoreApp.Infrastructure.Extensions
                 .CreateScope()
                 .ServiceProvider
                 .GetRequiredService<RepositoryContext>();
-            if(context.Database.GetPendingMigrations().Any())
+            if (context.Database.GetPendingMigrations().Any())
             {
                 context.Database.Migrate();
             }
+
+        }
+
+
+        public static void ConfigureLocalization(this WebApplication app)
+        {
+            app.UseRequestLocalization(options=>
+            {
+                options.AddSupportedUICultures("tr-TR")
+                    .AddSupportedUICultures("tr-TR")
+                    .SetDefaultCulture("tr-TR");
+            });
 
         }
     }
