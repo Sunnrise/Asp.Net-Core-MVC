@@ -9,6 +9,8 @@ namespace StoreApp.Infrastructure.TagHelpers
     public class LatestProductTagHelper : TagHelper
     {
         private readonly IServiceManager _manager;
+        [HtmlAttributeName("number")]
+        public int Number { get; set; }
 
         public LatestProductTagHelper(IServiceManager manager)
         {
@@ -31,13 +33,13 @@ namespace StoreApp.Infrastructure.TagHelpers
             h6.InnerHtml.AppendHtml("Latest Products");
 
             TagBuilder ul = new TagBuilder("ul");
-            var products = _manager.ProductService.GetLatestProducts(5, false);
-            foreach(Product product in products)
+            var products = _manager.ProductService.GetLatestProducts(Number, false);
+            foreach (Product product in products)
             {
 
                 TagBuilder li = new TagBuilder("li");
                 TagBuilder a = new TagBuilder("a");
-                a.Attributes.Add("href",$"/product/get/{product.ProductId}");
+                a.Attributes.Add("href", $"/product/get/{product.ProductId}");
                 a.InnerHtml.AppendHtml(product.ProductName);
 
                 li.InnerHtml.AppendHtml(a);
