@@ -24,7 +24,9 @@ namespace Repositories
             //after extension
             return _context
                 .Products
-                .FilteredByCategoryId(p.CategoryId);
+                .FilteredByCategoryId(p.CategoryId)
+                .FilteredBySearchTerm(p.SearchTerm)
+                .FilteredByPrice(p.MinPrice,p.MaxPrice,p.IsValidPrice);
 
             ////before extension
             
