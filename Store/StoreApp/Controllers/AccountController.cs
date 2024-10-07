@@ -1,4 +1,5 @@
 using System.Formats.Asn1;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StoreApp.Models;
@@ -16,7 +17,7 @@ namespace StoreApp.controllers
             _signInManager = signInManager;
         }
 
-        public IActionResult Login([FromQuery(Name ="ReturnUrl")] string ReturnUrl="/")
+        public IActionResult Login([FromQuery(Name = "ReturnUrl")] string ReturnUrl = "/")
         {
             return View(new LoginModel()
             {
@@ -47,6 +48,40 @@ namespace StoreApp.controllers
         {
             await _signInManager.SignOutAsync();
             return Redirect(ReturnUrl);
+        }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register([FromForm] RegisterDTO model)
+        {
+            var user = new IdentityUser
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+            };
+            var result = await _userManager
+                .CreateAsync(user, model.Password);
+
+            if (result.Succeeded)
+            {
+                var roleResult = await _userManager
+                    .AddToRoleAsync(user, "User");
+                if (roleResult.Succeeded)
+                    return RedirectToAction(nameof(Login),new {ReturnUrl="/"});
+            }
+            else
+            {
+                foreach (var err in result.Errors)
+                {
+                    ModelState.AddModelError("", err.Description);
+                }
+            }
+            return View();
         }
     }
 }
