@@ -47,6 +47,9 @@ app.UseHttpsRedirection();
 //endpoints routes definition
 app.UseRouting();
 
+app.UseAuthentication();
+app.UseAuthentication();
+
 //for areas
 app.UseEndpoints(end=>
 {
@@ -63,6 +66,9 @@ app.UseEndpoints(end=>
     );
     _ = end.MapRazorPages();
 });
+
+
+
 
 //Auto migrations extension registration
 app.ConfigureAndCheckMigration();
