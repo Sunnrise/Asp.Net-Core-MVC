@@ -8,8 +8,9 @@ builder.Services.AddControllersWithViews();
 //adding razorpages for mvvm pattern without controller
 builder.Services.AddRazorPages();
 
-//Db extension registration
+//Db and Identity extensions registration
 builder.Services.ConfigureDbContext(builder.Configuration);
+builder.Services.ConfigureIndentity();
 
 //Session extension registration
 builder.Services.ConfigureSession();
@@ -68,5 +69,8 @@ app.ConfigureAndCheckMigration();
 
 //Localization extension registration
 app.ConfigureLocalization();
+
+//Default admin assignnment
+app.ConfigureDefaultAdminUser();
 
 app.Run();
