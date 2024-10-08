@@ -24,7 +24,7 @@ namespace StoreApp.Infrastructure.Extensions
             });
         }
 
-        public static void ConfigureIndentity(this IServiceCollection services)
+        public static void ConfigureIdentity(this IServiceCollection services)
         {
             services.AddIdentity<IdentityUser,IdentityRole>(options=>
             {
@@ -34,6 +34,7 @@ namespace StoreApp.Infrastructure.Extensions
                 options.Password.RequireLowercase=false;
                 options.Password.RequireDigit=false;
                 options.Password.RequiredLength=6;
+                options.Password.RequireNonAlphanumeric=false;
             })
             .AddEntityFrameworkStores<RepositoryContext>();
         }

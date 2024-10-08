@@ -10,7 +10,7 @@ builder.Services.AddRazorPages();
 
 //Db and Identity extensions registration
 builder.Services.ConfigureDbContext(builder.Configuration);
-builder.Services.ConfigureIndentity();
+builder.Services.ConfigureIdentity();
 
 //Session extension registration
 builder.Services.ConfigureSession();

@@ -21,8 +21,8 @@
         <td>@user.UserName</td>
         <td>-.</td>
         <td><div class="btn-group">
-            <a class="btn btn-sm btn-warning m-1 rounded-2">Update</a>
-            <a class="btn btn-sm btn-info m-1 rounded-2">Reset Password</a>
+            <a class="btn btn-sm btn-warning m-1 rounded-2" asp-action="Update" asp-route-id="@user.UserName">Edit</a>
+            <a class="btn btn-sm btn-info m-1 rounded-2" asp-action="ResetPassword">Reset Password</a>
             <a class="btn btn-sm btn-danger m-1 rounded-2">Delete</a>
         </div></td>
     </tr>
