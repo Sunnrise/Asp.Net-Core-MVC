@@ -24,6 +24,8 @@ builder.Services.ConfigureServiceRegistration();
 //Lowercase urls extension registration
 builder.Services.CongfigureRouting();
 
+builder.Services.ConfigureApplicationCookie();
+
 
 
 //HttpContextAccessor IoC Regis.
