@@ -3,6 +3,7 @@ using StoreApp.Infrastructure.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 //adding controllerviews for mvc, controller for api
+builder.Services.AddControllers();
 builder.Services.AddControllersWithViews();
 
 //adding razorpages for mvvm pattern without controller
@@ -53,7 +54,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 //for areas
-app.UseEndpoints(end=>
+app.UseEndpoints(static end =>
 {
     //admin route
     _ = end.MapAreaControllerRoute(
@@ -67,6 +68,7 @@ app.UseEndpoints(end=>
         pattern: "{controller=Home}/{action=Index}/{id?}"
     );
     _ = end.MapRazorPages();
+    _=end.MapControllers();
 });
 
 
