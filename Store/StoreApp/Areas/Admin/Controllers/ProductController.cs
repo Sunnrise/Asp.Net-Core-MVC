@@ -1,5 +1,6 @@
 using Entities.DTOs;
 using Entities.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -8,6 +9,7 @@ using Services.Contracts;
 namespace StoreApp.Areas.Admin.Controllers
 {
     [Area(nameof(Admin))]
+    [Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
         private readonly IServiceManager _manager;
@@ -25,9 +27,9 @@ namespace StoreApp.Areas.Admin.Controllers
         }
         public IActionResult Create()
         {
-            ViewBag.Categories= GetCategoriesSelectList();
-            
-            
+            ViewBag.Categories = GetCategoriesSelectList();
+
+
             return View();
         }
 
@@ -35,7 +37,7 @@ namespace StoreApp.Areas.Admin.Controllers
         {
             return new SelectList(_manager.CategoryService.GetAllCategories(false),
             "CategoryId",
-            "CategoryName",1);
+            "CategoryName", 1);
         }
 
         [HttpPost]
@@ -44,13 +46,13 @@ namespace StoreApp.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                string path=Path.Combine(Directory.GetCurrentDirectory(),"wwwroot","images",file.FileName);
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", file.FileName);
 
-                using(var stream= new FileStream(path,FileMode.Create))
+                using (var stream = new FileStream(path, FileMode.Create))
                 {
                     await file.CopyToAsync(stream);
                 }
-                productDto.ImageUrl=String.Concat("/images/",file.FileName);
+                productDto.ImageUrl = String.Concat("/images/", file.FileName);
                 //file ops.
 
                 _manager.ProductService.CreateProduct(productDto);
@@ -59,10 +61,10 @@ namespace StoreApp.Areas.Admin.Controllers
             return View();
         }
 
-        public IActionResult Update([FromRoute(Name ="id")]int id)
+        public IActionResult Update([FromRoute(Name = "id")] int id)
         {
-            ViewBag.Categories= GetCategoriesSelectList();
-            var model= _manager.ProductService.GetOneProductForUpdate(id,false);
+            ViewBag.Categories = GetCategoriesSelectList();
+            var model = _manager.ProductService.GetOneProductForUpdate(id, false);
             return View(model);
         }
 
@@ -70,16 +72,16 @@ namespace StoreApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update([FromForm] ProductDTO_ForUpdate productDto, IFormFile file)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                string path=Path.Combine(Directory.GetCurrentDirectory(),"wwwroot","images",file.FileName);
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", file.FileName);
 
-                using(var stream= new FileStream(path,FileMode.Create))
+                using (var stream = new FileStream(path, FileMode.Create))
                 {
                     await file.CopyToAsync(stream);
 
                 }
-                productDto.ImageUrl=String.Concat("/images/",file.FileName);
+                productDto.ImageUrl = String.Concat("/images/", file.FileName);
                 _manager.ProductService.UpdateOneProduct(productDto);
                 return RedirectToAction(nameof(Index));
             }
@@ -87,7 +89,7 @@ namespace StoreApp.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Delete([FromRoute(Name ="id")]int id)
+        public IActionResult Delete([FromRoute(Name = "id")] int id)
         {
             _manager.ProductService.DeleteOneProduct(id);
             return RedirectToAction(nameof(Index));

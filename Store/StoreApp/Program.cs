@@ -8,8 +8,9 @@ builder.Services.AddControllersWithViews();
 //adding razorpages for mvvm pattern without controller
 builder.Services.AddRazorPages();
 
-//Db extension registration
+//Db and Identity extensions registration
 builder.Services.ConfigureDbContext(builder.Configuration);
+builder.Services.ConfigureIdentity();
 
 //Session extension registration
 builder.Services.ConfigureSession();
@@ -22,6 +23,8 @@ builder.Services.ConfigureServiceRegistration();
 
 //Lowercase urls extension registration
 builder.Services.CongfigureRouting();
+
+builder.Services.ConfigureApplicationCookie();
 
 
 
@@ -46,6 +49,9 @@ app.UseHttpsRedirection();
 //endpoints routes definition
 app.UseRouting();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 //for areas
 app.UseEndpoints(end=>
 {
@@ -63,10 +69,16 @@ app.UseEndpoints(end=>
     _ = end.MapRazorPages();
 });
 
+
+
+
 //Auto migrations extension registration
 app.ConfigureAndCheckMigration();
 
 //Localization extension registration
 app.ConfigureLocalization();
+
+//Default admin assignnment
+app.ConfigureDefaultAdminUser();
 
 app.Run();

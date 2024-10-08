@@ -33,9 +33,7 @@
             Cart(@await Component.InvokeAsync("CartSummary"))
             </a>
           </li>
-         <li class="nav-item">
-            <a target="_blank" class="nav-link text-dark" aria-current="page" asp-area="admin" asp-controller="Dashboard" asp-action="Index">Admin</a>
-          </li>
+          <partial name="_LoginMenu"></partial>
       </ul>
     </div>
   </div>

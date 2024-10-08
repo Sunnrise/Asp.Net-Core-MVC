@@ -1,5 +1,6 @@
 using System.Reflection.Metadata.Ecma335;
 using Entities.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
 
@@ -16,22 +17,23 @@ namespace StoreApp.controllers
             _cart = cart;
         }
 
-        public ViewResult Checkout()=>View(new Order());
+        [Authorize]
+        public ViewResult Checkout() => View(new Order());
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Checkout([FromForm]Order order)
+        public IActionResult Checkout([FromForm] Order order)
         {
-            if(_cart.Lines.Count()==0)
+            if (_cart.Lines.Count() == 0)
             {
-                ModelState.AddModelError("","Sorry the cart is empty.");
+                ModelState.AddModelError("", "Sorry the cart is empty.");
             }
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                order.Lines=_cart.Lines.ToArray();
+                order.Lines = _cart.Lines.ToArray();
                 _manager.OrderService.SaveOrder(order);
                 _cart.Clear();
-                return RedirectToPage("/Complete", new {OrderId=order.OrderId});
+                return RedirectToPage("/Complete", new { OrderId = order.OrderId });
             }
             else
             {
