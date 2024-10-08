@@ -1,8 +1,8 @@
-using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
 
-namespace StoreApp.Api
+
+namespace Presentation.Controllers
 {
 
 [Route("api/products")]
