@@ -14,12 +14,12 @@
 </tr>
     </thead>
     <tbody>
-@foreach(var user in Model)
+@foreach(IdentityUser user in Model)
 {
     <tr>
         <td>@user.Id</td>
         <td>@user.UserName</td>
-        <td>-.</td>
+        <td user-name="@user.UserName" user-role="">-</td>
         <td><div class="btn-group">
             <a class="btn btn-warning m-1 rounded-2" asp-action="Update" asp-route-id="@user.UserName">Edit</a>
             <a class="btn btn-info m-1 rounded-2" asp-action="ResetPassword" asp-route-id="@user.UserName">Reset Password</a>

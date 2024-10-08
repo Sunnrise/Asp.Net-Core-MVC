@@ -85,7 +85,7 @@ namespace StoreApp.Infrastructure.Extensions
                 options.LoginPath= new PathString("/Account/Login");
                 options.ReturnUrlParameter=CookieAuthenticationDefaults.ReturnUrlParameter;
                 options.ExpireTimeSpan=TimeSpan.FromMinutes(10);
-                options.AccessDeniedPath= new PathString("Account/AccessDenied");
+                options.AccessDeniedPath= new PathString("/Account/AccessDenied");
             });
         }
 
