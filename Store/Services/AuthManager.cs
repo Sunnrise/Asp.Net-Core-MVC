@@ -42,6 +42,12 @@ namespace Services
             return result;
         }
 
+        public async Task<IdentityResult> DeleteOneUser(string userName)
+        {
+            var user = await GetOneUser(userName);
+            return await _userManager.DeleteAsync(user);
+        }
+
         public IEnumerable<IdentityUser> GetAllUsers()
         {
             return _userManager.Users.ToList();
@@ -49,32 +55,31 @@ namespace Services
 
         public async Task<IdentityUser> GetOneUser(string userName)
         {
-            return await _userManager.FindByNameAsync(userName);
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user is not null)
+                return user;
+            throw new Exception("User could not be found.");
+
         }
 
         public async Task<UserDTO_ForUpdate> GetOneUserForUpdate(string userName)
         {
             var user = await GetOneUser(userName);
-            if (user is not null)
-            {
-                var userDto = _mapper.Map<UserDTO_ForUpdate>(user);
-                userDto.Roles = new HashSet<string>(Roles.Select(r => r.Name).ToList());
-                userDto.UserRoles = new HashSet<string>(await _userManager.GetRolesAsync(user));
-                return userDto;
-            }
-            throw new Exception("An error occured");
+            var userDto = _mapper.Map<UserDTO_ForUpdate>(user);
+            userDto.Roles = new HashSet<string>(Roles.Select(r => r.Name).ToList());
+            userDto.UserRoles = new HashSet<string>(await _userManager.GetRolesAsync(user));
+            return userDto;
+
         }
 
         public async Task<IdentityResult> ResetPassword(ResetPasswordDTO model)
         {
             var user = await GetOneUser(model.UserName);
-            if (user is not null)
-            {
-                await _userManager.RemovePasswordAsync(user);
-                var result = await _userManager.AddPasswordAsync(user, model.Password);
-                return result;
-            }
-            throw new Exception("User could not be found");
+
+            await _userManager.RemovePasswordAsync(user);
+            var result = await _userManager.AddPasswordAsync(user, model.Password);
+            return result;
+
         }
 
         public async Task Update(UserDTO_ForUpdate userDTO)
@@ -83,19 +88,17 @@ namespace Services
             user.PhoneNumber = userDTO.PhoneNumber;
             user.Email = userDTO.Email;
 
-            if (user is not null)
-            {
-                var result = await _userManager.UpdateAsync(user);
 
-                if (userDTO.Roles.Count > 0)
-                {
-                    var userRoles = await _userManager.GetRolesAsync(user);
-                    var r1 = await _userManager.RemoveFromRolesAsync(user, userRoles);
-                    var r2 = await _userManager.AddToRolesAsync(user, userDTO.Roles);
-                }
-                return;
+            var result = await _userManager.UpdateAsync(user);
+
+            if (userDTO.Roles.Count > 0)
+            {
+                var userRoles = await _userManager.GetRolesAsync(user);
+                var r1 = await _userManager.RemoveFromRolesAsync(user, userRoles);
+                var r2 = await _userManager.AddToRolesAsync(user, userDTO.Roles);
             }
-            throw new Exception("System has problem User Update Opt");
+            return;
+
         }
 
     }

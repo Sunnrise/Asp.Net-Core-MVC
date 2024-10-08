@@ -48,7 +48,7 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthentication();
-app.UseAuthentication();
+app.UseAuthorization();
 
 //for areas
 app.UseEndpoints(end=>

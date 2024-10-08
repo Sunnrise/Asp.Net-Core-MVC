@@ -1,10 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
 
 namespace StoreApp.Areas.Admin.Controllers
 {
     [Area(nameof(Admin))]
-    public class RoleController: Controller
+    [Authorize(Roles = "Admin")]
+    public class RoleController : Controller
     {
         private readonly IServiceManager _manager;
 

@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace StoreApp.Areas.Admin.Controllers
 {
     [Area(nameof(Admin))]
-    public class DashboardController: Controller
+    [Authorize(Roles = "Admin")]
+    public class DashboardController : Controller
     {
         public IActionResult Index()
         {
